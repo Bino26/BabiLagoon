@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BabiLagoon.Domain", "BabiLa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BabiLagoon.Infrastructure", "BabiLagoon.Infrastructure\BabiLagoon.Infrastructure.csproj", "{4CBDF401-2C94-4CBA-A732-787AD914E101}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BabiLagoon.API", "BabiLagoon.API\BabiLagoon.API.csproj", "{6897228F-58D8-414E-AB73-C3A603D0FF9C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{4CBDF401-2C94-4CBA-A732-787AD914E101}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CBDF401-2C94-4CBA-A732-787AD914E101}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CBDF401-2C94-4CBA-A732-787AD914E101}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6897228F-58D8-414E-AB73-C3A603D0FF9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6897228F-58D8-414E-AB73-C3A603D0FF9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6897228F-58D8-414E-AB73-C3A603D0FF9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6897228F-58D8-414E-AB73-C3A603D0FF9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
