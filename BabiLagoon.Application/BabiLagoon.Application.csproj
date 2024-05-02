@@ -6,4 +6,15 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Common\DTOs\" />
+    <Folder Include="Common\Mapping\" />
+    <Folder Include="Common\Utilty\" />
+    <Folder Include="Contract\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BabiLagoon.Domain\BabiLagoon.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -14,7 +14,6 @@ namespace BabiLagoon.Domain.Entities
         [MaxLength(50)]
         public required string Name { get; set; }
         public string? Description { get; set; }
-        [Display(Name = "Price per night")]
         [Range(10, 10000)]
         public double Price { get; set; }
         public int Sqft { get; set; }
@@ -22,7 +21,6 @@ namespace BabiLagoon.Domain.Entities
         public int Occupancy { get; set; }
         [NotMapped]
         //public IFormFile? Image { get; set; }
-        [Display(Name = "Image Url")]
         public string? ImageUrl { get; set; }
         public DateTime? Created_Date { get; set; }
         public DateTime? Updated_Date { get; set; }
