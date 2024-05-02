@@ -10,7 +10,7 @@ namespace BabiLagoon.Domain.Entities
 {
     public class Villa
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         [MaxLength(50)]
         public required string Name { get; set; }
         public string? Description { get; set; }

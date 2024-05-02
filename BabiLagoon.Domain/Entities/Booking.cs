@@ -20,7 +20,7 @@ namespace BabiLagoon.Domain.Entities
         //public ApplicationUser User { get; set; }
 
         [Required]
-        public Guid VillaId { get; set; }
+        public int VillaId { get; set; }
         [ForeignKey("VillaId")]
         public Villa Villa { get; set; }
 
