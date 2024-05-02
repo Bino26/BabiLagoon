@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BabiLagoon.Domain.Entities
 {
-    internal class Amenity
+    public class Amenity
     {
         [Key]
         public int Id { get; set; }
@@ -19,7 +19,7 @@ namespace BabiLagoon.Domain.Entities
 
         [ForeignKey("Villa")]
         public int VillaId { get; set; }
-        [ValidateNever]
+        //[ValidateNever]
         public Villa Villa { get; set; }
 
 

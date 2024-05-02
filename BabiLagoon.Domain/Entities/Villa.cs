@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace BabiLagoon.Domain.Entities
 {
-    internal class Villa
+    public class Villa
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         [MaxLength(50)]
         public required string Name { get; set; }
         public string? Description { get; set; }
@@ -21,13 +21,13 @@ namespace BabiLagoon.Domain.Entities
         [Range(1, 10)]
         public int Occupancy { get; set; }
         [NotMapped]
-        public IFormFile? Image { get; set; }
+        //public IFormFile? Image { get; set; }
         [Display(Name = "Image Url")]
         public string? ImageUrl { get; set; }
         public DateTime? Created_Date { get; set; }
         public DateTime? Updated_Date { get; set; }
 
-        [ValidateNever]
+        //[ValidateNever]
         public IEnumerable<Amenity> VillaAmenity { get; set; }
 
         [NotMapped]
