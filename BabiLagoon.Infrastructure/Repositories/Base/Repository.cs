@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -45,9 +46,31 @@ namespace BabiLagoon.Infrastructure.Repositories.Base
             return null;
         }
 
-        public async Task<List<T>> GetAllAsync()
+        public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked = false)
         {
-            return await dbContext.Set<T>().ToListAsync();
+            IQueryable<T> query;
+            if (tracked)
+            {
+                query = dbContext.Set<T>();
+            }
+            else
+            {
+                query = dbContext.Set<T>().AsNoTracking();
+            }
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var includeProp in includeProperties
+                    .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp.Trim());
+                }
+            }
+            return query.ToList();
+            //return await dbContext.Set<T>().ToListAsync();
         }
 
         public async Task<T> GetByIdAsync(int id)

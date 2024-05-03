@@ -20,6 +20,7 @@ namespace BabiLagoon.Infrastructure.Repositories
             this.dbContext = dbContext;
         }
 
+
         public async Task<Amenity> UpdateAsync(int id, Amenity amenity)
         {
             var existingAmenity = await dbContext.Amenities.FirstOrDefaultAsync(x => x.Id == id);
