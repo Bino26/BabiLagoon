@@ -1,4 +1,9 @@
+using BabiLagoon.Application.Common.Interfaces;
+using BabiLagoon.Application.Common.Interfaces.Base;
+using BabiLagoon.Application.Common.Mapping;
 using BabiLagoon.Infrastructure.Data;
+using BabiLagoon.Infrastructure.Repositories;
+using BabiLagoon.Infrastructure.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +17,11 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("BabiLagoonString")));
+
+
+builder.Services.AddScoped<IVillaRepository, VillaRepository>();
+
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 
 

@@ -46,10 +46,16 @@ namespace BabiLagoon.Infrastructure.Repositories.Base
             return await dbContext.Set<T>().ToListAsync();
         }
 
-        //public async Task<T> GetByIdAsync(int id)
+        public async Task<T> GetByIdAsync(int id)
+        {
+            return await dbContext.Set<T>().FindAsync(id);
+        }
+
+        //public async Task<T> GetByIdAsync<T>(int id) where T : class
         //{
-        //    return await dbContext.Set<T>().FindAsync(id);
+        //    return await dbContext.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
         //}
+
 
         public Task<T> UpdateAsync(T entity)
         {
