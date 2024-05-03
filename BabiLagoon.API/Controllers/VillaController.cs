@@ -78,10 +78,6 @@ namespace BabiLagoon.API.Controllers
         public async Task<IActionResult> DeleteVilla([FromRoute] int id)
         {
             var villa = await villaRepository.DeleteAsync(id);
-            if (villa is null)
-            {
-                return NotFound("Villa not found");
-            }
             return Ok("Villa Deleted Successfuly");
         }
 
