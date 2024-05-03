@@ -34,10 +34,14 @@ namespace BabiLagoon.Infrastructure.Repositories.Base
 
         }
 
-        public async Task<T> DeleteAsync(T entity)
+        public async Task<T> DeleteAsync(int id)
         {
-            dbContext.Set<T>().Remove(entity);
-            await dbContext.SaveChangesAsync();
+            var entity = await dbContext.Set<T>().FindAsync(id);
+            if (entity != null)
+            {
+                dbContext.Set<T>().Remove(entity);
+                await dbContext.SaveChangesAsync();
+            }
             return null;
         }
 
@@ -56,10 +60,5 @@ namespace BabiLagoon.Infrastructure.Repositories.Base
         //    return await dbContext.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
         //}
 
-
-        public Task<T> UpdateAsync(T entity)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

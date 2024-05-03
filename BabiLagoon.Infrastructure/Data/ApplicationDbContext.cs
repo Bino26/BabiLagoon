@@ -28,7 +28,7 @@ namespace BabiLagoon.Infrastructure.Data
                 new Villa
                 {
                     Id = 1,
-                    Name = "Royal Villa",
+                    Name = "Bino Villa",
                     Description = "Fusce 11 tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
                     ImageUrl = "https://placehold.co/600x400",
                     Occupancy = 4,
@@ -153,19 +153,22 @@ namespace BabiLagoon.Infrastructure.Data
           {
               Id = 9,
               VillaId = 3,
-              Name = "Private Pool"
+              Name = "Private Pool26"
           }, new Amenity
           {
               Id = 10,
               VillaId = 3,
-              Name = "Jacuzzi"
+              Name = "Jacuzzy"
           }, new Amenity
           {
               Id = 11,
               VillaId = 3,
-              Name = "Private Balcony"
+              Name = "Private Villa"
           });
 
         }
+
+
     }
 }
+

@@ -98,19 +98,19 @@ namespace BabiLagoon.Infrastructure.Data.Migrations
                         new
                         {
                             Id = 9,
-                            Name = "Private Pool",
+                            Name = "Private Pool26",
                             VillaId = 3
                         },
                         new
                         {
                             Id = 10,
-                            Name = "Jacuzzi",
+                            Name = "Jacuzzy",
                             VillaId = 3
                         },
                         new
                         {
                             Id = 11,
-                            Name = "Private Balcony",
+                            Name = "Private Villa",
                             VillaId = 3
                         });
                 });
@@ -227,7 +227,7 @@ namespace BabiLagoon.Infrastructure.Data.Migrations
                         {
                             Id = 1,
                             Description = "Fusce 11 tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
-                            Name = "Royal Villa",
+                            Name = "Bino Villa",
                             Occupancy = 4,
                             Price = 200.0,
                             Sqft = 550

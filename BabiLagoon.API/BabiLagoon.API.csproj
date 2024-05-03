@@ -24,8 +24,4 @@
     <ProjectReference Include="..\BabiLagoon.Infrastructure\BabiLagoon.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>

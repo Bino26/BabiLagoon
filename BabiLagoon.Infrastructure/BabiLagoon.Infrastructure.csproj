@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BabiLagoon.Application\BabiLagoon.Application.csproj" />
     <ProjectReference Include="..\BabiLagoon.Domain\BabiLagoon.Domain.csproj" />
   </ItemGroup>
 

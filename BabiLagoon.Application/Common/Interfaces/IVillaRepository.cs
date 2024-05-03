@@ -10,7 +10,8 @@ namespace BabiLagoon.Application.Common.Interfaces
 {
     public interface IVillaRepository:IRepository<Villa>
     {
-        //custom operations here
+        Task<Villa> UpdateAsync(int id, Villa villa);
+        
 
     }
 }

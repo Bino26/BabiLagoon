@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BabiLagoon.Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Initials : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -113,7 +113,7 @@ namespace BabiLagoon.Infrastructure.Data.Migrations
                 columns: new[] { "Id", "Created_Date", "Description", "Name", "Occupancy", "Price", "Sqft", "Updated_Date" },
                 values: new object[,]
                 {
-                    { 1, null, "Fusce 11 tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.", "Royal Villa", 4, 200.0, 550, null },
+                    { 1, null, "Fusce 11 tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.", "Bino Villa", 4, 200.0, 550, null },
                     { 2, null, "Fusce 11 tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.", "Premium Pool Villa", 4, 300.0, 550, null },
                     { 3, null, "Fusce 11 tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.", "Luxury Pool Villa", 4, 400.0, 750, null }
                 });
@@ -131,9 +131,9 @@ namespace BabiLagoon.Infrastructure.Data.Migrations
                     { 6, null, "Microwave and Mini Refrigerator", 2 },
                     { 7, null, "Private Balcony", 2 },
                     { 8, null, "king bed or 2 double beds", 2 },
-                    { 9, null, "Private Pool", 3 },
-                    { 10, null, "Jacuzzi", 3 },
-                    { 11, null, "Private Balcony", 3 }
+                    { 9, null, "Private Pool26", 3 },
+                    { 10, null, "Jacuzzy", 3 },
+                    { 11, null, "Private Villa", 3 }
                 });
 
             migrationBuilder.InsertData(

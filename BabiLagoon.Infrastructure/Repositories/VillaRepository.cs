@@ -19,7 +19,7 @@ namespace BabiLagoon.Infrastructure.Repositories
         {
             this.dbContext = dbContext;
         }
-        public async Task<Villa> UpdateVillaAsync( int id, Villa villa)
+        public async Task<Villa> UpdateAsync( int id, Villa villa)
         {
             var existingVilla = await dbContext.Villas.FirstOrDefaultAsync(x => x.Id == id);
             if (villa is null)

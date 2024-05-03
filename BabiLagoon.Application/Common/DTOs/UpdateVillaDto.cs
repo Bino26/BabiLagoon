@@ -21,6 +21,8 @@ namespace BabiLagoon.Application.Common.DTOs
         [NotMapped]
         //public IFormFile? Image { get; set; }
         public string? ImageUrl { get; set; }
-        public DateTime? Created_Date { get; set; } = DateTime.UtcNow;
+        public DateTime? Updated_Date { get; set; } = DateTime.UtcNow;
+        [NotMapped]
+        public bool IsAvailable { get; set; }
     }
 }

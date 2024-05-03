@@ -7,10 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Common\DTOs\" />
-    <Folder Include="Common\Mapping\" />
     <Folder Include="Common\Utilty\" />
     <Folder Include="Contract\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
