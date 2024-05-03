@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace BabiLagoon.Domain.Entities
 {
@@ -12,7 +13,8 @@ namespace BabiLagoon.Domain.Entities
     {
         public int Id { get; set; }
         [MaxLength(50)]
-        public required string Name { get; set; }
+        [Required]
+        public string Name { get; set; }
         public string? Description { get; set; }
         [Range(10, 10000)]
         public double Price { get; set; }
@@ -20,7 +22,7 @@ namespace BabiLagoon.Domain.Entities
         [Range(1, 10)]
         public int Occupancy { get; set; }
         [NotMapped]
-        //public IFormFile? Image { get; set; }
+        public IFormFile ? Image { get; set; }
         public string? ImageUrl { get; set; }
         public DateTime? Created_Date { get; set; }
         public DateTime? Updated_Date { get; set; }

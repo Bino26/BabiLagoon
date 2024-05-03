@@ -24,6 +24,7 @@ namespace BabiLagoon.Infrastructure.Data.Migrations
                     Price = table.Column<double>(type: "float", nullable: false),
                     Sqft = table.Column<int>(type: "int", nullable: false),
                     Occupancy = table.Column<int>(type: "int", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Created_Date = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Updated_Date = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -110,12 +111,12 @@ namespace BabiLagoon.Infrastructure.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Villas",
-                columns: new[] { "Id", "Created_Date", "Description", "Name", "Occupancy", "Price", "Sqft", "Updated_Date" },
+                columns: new[] { "Id", "Created_Date", "Description", "ImageUrl", "Name", "Occupancy", "Price", "Sqft", "Updated_Date" },
                 values: new object[,]
                 {
-                    { 1, null, "Fusce 11 tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.", "Bino Villa", 4, 200.0, 550, null },
-                    { 2, null, "Fusce 11 tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.", "Premium Pool Villa", 4, 300.0, 550, null },
-                    { 3, null, "Fusce 11 tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.", "Luxury Pool Villa", 4, 400.0, 750, null }
+                    { 1, null, "Fusce 11 tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.", "https://placehold.co/600x400", "Bino Villa", 4, 200.0, 550, null },
+                    { 2, null, "Fusce 11 tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.", "https://placehold.co/600x401", "Premium Pool Villa", 4, 300.0, 550, null },
+                    { 3, null, "Fusce 11 tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.", "https://placehold.co/600x402", "Luxury Pool Villa", 4, 400.0, 750, null }
                 });
 
             migrationBuilder.InsertData(

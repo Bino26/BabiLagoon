@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BabiLagoon.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240503142902_Initial")]
+    [Migration("20240503183604_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -204,6 +204,9 @@ namespace BabiLagoon.Infrastructure.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -230,6 +233,7 @@ namespace BabiLagoon.Infrastructure.Data.Migrations
                         {
                             Id = 1,
                             Description = "Fusce 11 tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
+                            ImageUrl = "https://placehold.co/600x400",
                             Name = "Bino Villa",
                             Occupancy = 4,
                             Price = 200.0,
@@ -239,6 +243,7 @@ namespace BabiLagoon.Infrastructure.Data.Migrations
                         {
                             Id = 2,
                             Description = "Fusce 11 tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
+                            ImageUrl = "https://placehold.co/600x401",
                             Name = "Premium Pool Villa",
                             Occupancy = 4,
                             Price = 300.0,
@@ -248,6 +253,7 @@ namespace BabiLagoon.Infrastructure.Data.Migrations
                         {
                             Id = 3,
                             Description = "Fusce 11 tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
+                            ImageUrl = "https://placehold.co/600x402",
                             Name = "Luxury Pool Villa",
                             Occupancy = 4,
                             Price = 400.0,

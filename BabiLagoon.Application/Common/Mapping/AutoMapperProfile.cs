@@ -16,6 +16,10 @@ namespace BabiLagoon.Application.Common.Mapping
             CreateMap<Villa, VillaDto>().ReverseMap();
             CreateMap<CreateVillaDto, Villa>().ReverseMap();
             CreateMap<UpdateVillaDto, Villa>().ReverseMap();
+
+            CreateMap<Amenity, AmenityDto>().ReverseMap();
+            CreateMap<CreateAmenityDto, Amenity>().ReverseMap();
+            CreateMap<UpdateAmenityDto, Amenity>().ReverseMap();
         }
     }
 }

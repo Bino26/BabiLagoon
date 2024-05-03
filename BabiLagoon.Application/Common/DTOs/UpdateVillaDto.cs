@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace BabiLagoon.Application.Common.DTOs
 {
@@ -19,7 +20,7 @@ namespace BabiLagoon.Application.Common.DTOs
         [Range(1, 10)]
         public int Occupancy { get; set; }
         [NotMapped]
-        //public IFormFile? Image { get; set; }
+        public IFormFile? Image { get; set; }
         public string? ImageUrl { get; set; }
         public DateTime? Updated_Date { get; set; } = DateTime.UtcNow;
         [NotMapped]

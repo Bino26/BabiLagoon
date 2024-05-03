@@ -20,6 +20,7 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("BabiLagoonString
 
 
 builder.Services.AddScoped<IVillaRepository, VillaRepository>();
+builder.Services.AddScoped<IAmenityRepository, AmenityRepository>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
