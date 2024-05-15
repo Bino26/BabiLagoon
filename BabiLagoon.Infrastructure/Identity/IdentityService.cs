@@ -45,10 +45,21 @@ namespace BabiLagoon.Infrastructure.Identity
                 return result.Succeeded;
         }
 
-        //public Task<IActionResult> DeleteUserAsync()
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public async  Task<IActionResult> DeleteUserAsync(ClaimsPrincipal user)
+        {
+            var id = user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (id != null)
+            {
+                var userToDelete = await userManager.FindByIdAsync(id);
+                if (userToDelete != null)
+                {
+                    await userManager.DeleteAsync(userToDelete);
+                    return new OkObjectResult("User was deleted successfully");
+                }
+            }
+            return new NotFoundObjectResult("User not found");
+
+        }
 
         //public Task<string> GenerateJwtTokenAsync(ApplicationUserDto user, List<string> roles)
         //{
@@ -77,7 +88,7 @@ namespace BabiLagoon.Infrastructure.Identity
         //        expires: DateTime.Now.AddMinutes(60),
         //        signingCredentials: credentails);
 
-        //    var tokenString= new JwtSecurityTokenHandler().WriteToken(token);
+        //    var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
         //    return Task.FromResult(tokenString);
 
         //}
@@ -133,9 +144,32 @@ namespace BabiLagoon.Infrastructure.Identity
             return new OkObjectResult("User was logged out successfully");
         }
 
-        //public Task<UpdateUserDto> UpdateAsync(UpdateUserDto updateUserDto)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public async  Task<IActionResult> UpdateAsync(UpdateUserDto updateUserDto, ClaimsPrincipal user)
+        {
+            var id = user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (id is null)
+            {
+                return new NotFoundObjectResult("User not found");
+                
+            }
+            var existingUser = await userManager.FindByIdAsync(id);
+            if (existingUser == null)
+            {
+                return new NotFoundObjectResult("User not found");
+            }
+            existingUser.UserName = updateUserDto.Username;
+
+            var result = await userManager.UpdateAsync(existingUser);
+            if (result.Succeeded)
+            {
+                return new OkObjectResult("User updated successfully");
+            }
+            else
+            {
+
+                return new BadRequestObjectResult( "Failed to update user");
+            }
+
+        }
     }
 }

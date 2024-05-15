@@ -11,7 +11,6 @@ namespace BabiLagoon.API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IIdentityService identityService;
         private readonly IIdentityService authService;
 
         public UserController(IIdentityService authService)
@@ -56,6 +55,25 @@ namespace BabiLagoon.API.Controllers
         {
             await authService.LogOutAsync();
             return Ok("User was logged out successfuly");
+        }
+        [HttpPut]
+        [Authorize]
+        [Route("updateuser")]
+
+        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDto updateUserDto)
+        {
+            var result = await authService.UpdateAsync(updateUserDto , User);
+            return result;
+        }
+
+        [HttpDelete]
+        [Authorize]
+        [Route("deleteuser")]
+
+        public async Task<IActionResult> DeleteUser()
+        {
+            var result = await authService.DeleteUserAsync(User);
+            return result;
         }
     }
 }
