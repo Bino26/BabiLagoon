@@ -30,6 +30,7 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("BabiLagoonAuthSt
 
 builder.Services.AddScoped<IVillaRepository, VillaRepository>();
 builder.Services.AddScoped<IAmenityRepository, AmenityRepository>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IIdentityService, IdentityService>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));

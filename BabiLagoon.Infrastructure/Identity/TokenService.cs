@@ -1,4 +1,5 @@
-﻿using BabiLagoon.Application.Services.Interfaces;
+﻿using BabiLagoon.Application.Common.Interfaces;
+using BabiLagoon.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyModel;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace BabiLagoon.Infrastructure.Identity
 {
-    public class TokenService 
+    public class TokenService:ITokenService
     {
         private readonly IConfiguration configuration;
 
@@ -22,37 +23,35 @@ namespace BabiLagoon.Infrastructure.Identity
             this.configuration = configuration;
         }
 
-        public string CreateJwtToken(IdentityUser user, List<string> roles)
+        public async Task<string> GenerateJwtTokenAsync(string userName, IList<string> roles)
         {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.UTF8.GetBytes(configuration["Jwt:Key"]);
 
             var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.NameIdentifier, user.Id),
-            new Claim(ClaimTypes.Email, user.Email),
-            new Claim("username", user.UserName),
-
-        };
+            {
+                new Claim(ClaimTypes.Name, userName)
+            };
 
             foreach (var role in roles)
             {
                 claims.Add(new Claim(ClaimTypes.Role, role));
             }
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
 
-            var credentails = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return await Task.FromResult(tokenHandler.WriteToken(token));
 
-            var token = new JwtSecurityToken(
-                configuration["Jwt:Issuer"],
-                configuration["Jwt:Audience"],
-                claims,
-                expires: DateTime.Now.AddMinutes(60),
-                signingCredentials: credentails);
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
+    }
     
-}
+
 
 

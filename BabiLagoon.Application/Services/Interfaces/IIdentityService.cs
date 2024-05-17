@@ -17,7 +17,6 @@ namespace BabiLagoon.Application.Services.Interfaces
         Task<IActionResult> UpdateAsync(UpdateUserDto updateUserDto , ClaimsPrincipal user);
 
         //Task<IActionResult> GetUserAsync();
-        ////Task<string> GenerateJwtTokenAsync(ApplicationUserDto user , List<string>roles);
         Task<IActionResult> DeleteUserAsync(ClaimsPrincipal user);
 
         Task<IActionResult> LogOutAsync();

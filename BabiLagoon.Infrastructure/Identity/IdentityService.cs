@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
 using BabiLagoon.Application.Common.DTOs;
+using BabiLagoon.Application.Common.Interfaces;
 using BabiLagoon.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
@@ -19,16 +17,16 @@ namespace BabiLagoon.Infrastructure.Identity
     {
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
-        private readonly IConfiguration configuration;
         private readonly IMapper mapper;
+        private readonly ITokenService tokenService;
 
         public IdentityService(
-            UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IConfiguration configuration,IMapper mapper)
+            UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager,IMapper mapper, ITokenService tokenService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
-            this.configuration = configuration;
             this.mapper = mapper;
+            this.tokenService = tokenService;
         }
 
         public async Task<bool> CreateUserAsync(CreateUserDto createUserDto)
@@ -61,43 +59,6 @@ namespace BabiLagoon.Infrastructure.Identity
 
         }
 
-        //public Task<string> GenerateJwtTokenAsync(ApplicationUserDto user, List<string> roles)
-        //{
-
-        //    var claims = new List<Claim>
-        //{
-        //    new Claim(ClaimTypes.NameIdentifier, user.Id),
-        //    new Claim(ClaimTypes.Email, user.Email),
-        //    new Claim("username", user.UserName),
-
-        //};
-
-        //    foreach (var role in roles)
-        //    {
-        //        claims.Add(new Claim(ClaimTypes.Role, role));
-        //    }
-
-        //    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
-
-        //    var credentails = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-        //    var token = new JwtSecurityToken(
-        //        configuration["Jwt:Issuer"],
-        //        configuration["Jwt:Audience"],
-        //        claims,
-        //        expires: DateTime.Now.AddMinutes(60),
-        //        signingCredentials: credentails);
-
-        //    var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
-        //    return Task.FromResult(tokenString);
-
-        //}
-
-        //public Task<IActionResult> GetUserAsync()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
         public async Task<LoginResponseDto> LoginAsync(LoginRequestDto loginRequestDto)
         {
             var user = await userManager.FindByEmailAsync(loginRequestDto.Email);
@@ -109,28 +70,16 @@ namespace BabiLagoon.Infrastructure.Identity
             if (signInResult.Succeeded)
             {
                  var roles = await userManager.GetRolesAsync(user);
-                 var tokenHandler = new JwtSecurityTokenHandler();
-                 var key = Encoding.UTF8.GetBytes(configuration["Jwt:Key"]);
+                 var token = await  tokenService.GenerateJwtTokenAsync(user.UserName , roles);
+                 
 
-                    var tokenDescriptor = new SecurityTokenDescriptor
+                    return  new LoginResponseDto
                     {
-                        Subject = new ClaimsIdentity(new Claim[]
-                   {
-                    new Claim(ClaimTypes.Name, user.UserName.ToString()),
-                    new Claim(ClaimTypes.Role, roles.FirstOrDefault())
-                   }),
-                        Expires = DateTime.UtcNow.AddDays(7),
-                        SigningCredentials = new(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-                    };
-
-                    var token = tokenHandler.CreateToken(tokenDescriptor);
-                    LoginResponseDto loginResponseDTO = new LoginResponseDto()
-                    {
-                        JwtToken = tokenHandler.WriteToken(token),
+                        JwtToken = token
                         //User = mapper.Map<UserDto>(user),
 
                     };
-                    return loginResponseDTO;
+                    
                 }
             }
 
