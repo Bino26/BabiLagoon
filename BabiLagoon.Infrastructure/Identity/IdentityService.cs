@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using BabiLagoon.Application.Common.DTOs;
-using BabiLagoon.Application.Common.Interfaces;
 using BabiLagoon.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,13 +14,13 @@ namespace BabiLagoon.Infrastructure.Identity
 {
     public class IdentityService : IIdentityService
     {
-        private readonly UserManager<IdentityUser> userManager;
-        private readonly SignInManager<IdentityUser> signInManager;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly SignInManager<ApplicationUser> signInManager;
         private readonly IMapper mapper;
         private readonly ITokenService tokenService;
 
         public IdentityService(
-            UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager,IMapper mapper, ITokenService tokenService)
+            UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,IMapper mapper, ITokenService tokenService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -31,7 +30,7 @@ namespace BabiLagoon.Infrastructure.Identity
 
         public async Task<bool> CreateUserAsync(CreateUserDto createUserDto)
         {
-            var user = new IdentityUser
+            var user = new ApplicationUser
             { 
                 UserName = createUserDto.Username,
                 Email = createUserDto.Email, 
@@ -75,7 +74,7 @@ namespace BabiLagoon.Infrastructure.Identity
 
                     return  new LoginResponseDto
                     {
-                        JwtToken = token
+                        JwtToken = token,
                         //User = mapper.Map<UserDto>(user),
 
                     };

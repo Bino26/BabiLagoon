@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BabiLagoon.Application.Common.Interfaces
+namespace BabiLagoon.Application.Services.Interfaces
 {
-    public  interface ITokenService
+    public interface ITokenService
     {
         Task<string> GenerateJwtTokenAsync(string userName, IList<string> roles);
     }

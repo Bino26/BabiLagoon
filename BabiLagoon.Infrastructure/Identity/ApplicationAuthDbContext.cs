@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BabiLagoon.Infrastructure.Identity
 {
-    public class ApplicationAuthDbContext : IdentityDbContext
+    public class ApplicationAuthDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationAuthDbContext(DbContextOptions <ApplicationAuthDbContext>  options) : base(options)
         {

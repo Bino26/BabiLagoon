@@ -1,5 +1,4 @@
-﻿using BabiLagoon.Application.Common.Interfaces;
-using BabiLagoon.Application.Services.Interfaces;
+﻿using BabiLagoon.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyModel;

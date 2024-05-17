@@ -35,8 +35,8 @@ builder.Services.AddScoped<IIdentityService, IdentityService>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationAuthDbContext>()
-    .AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>("BabiLagoon")
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationAuthDbContext>()
+    .AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>("BabiLagoon")
     .AddDefaultTokenProviders();
 
 builder.Services.Configure<IdentityOptions>(options =>
