@@ -1,4 +1,5 @@
-﻿using BabiLagoon.Application.Common.DTOs;
+﻿using Azure.Core.GeoJson;
+using BabiLagoon.Application.Common.DTOs;
 using BabiLagoon.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -46,6 +47,26 @@ namespace BabiLagoon.API.Controllers
             return Ok("User logged successfuly");
 
         }
+
+        [HttpGet]
+        [Authorize]
+        [Route("user")]
+
+        public async Task<IActionResult> GetUser()
+        {
+            var result = await authService.GetUserAsync(User);
+            return result;
+        }
+
+        //[HttpGet]
+        //[Authorize]
+        //[Route("users")]
+
+        //public async Task<IActionResult> GetUsers()
+        //{
+        //    var result = await authService.GetUserAsync(User);
+        //    return result;
+        //}
 
         [HttpGet]
         [Authorize]

@@ -58,6 +58,29 @@ namespace BabiLagoon.Infrastructure.Identity
 
         }
 
+        public async Task<IActionResult> GetUserAsync(ClaimsPrincipal user)
+        {
+            var id = user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (id is null)
+            {
+                return new NotFoundObjectResult("User not found");
+
+            }
+            var existingUser = await userManager.FindByIdAsync(id);
+            if (existingUser == null)
+            {
+                return new NotFoundObjectResult("User not found");
+            }
+            return  new OkObjectResult(existingUser);
+            //return mapper.Map<UserDto>(user)
+        }
+
+        //public async Task<List<UserDto>> GetAllUsersAsync()
+        //{
+        //    var users = userManager.Users.ToList();
+        //    return mapper.Map<List<UserDto>>(users);
+        //}
+
         public async Task<LoginResponseDto> LoginAsync(LoginRequestDto loginRequestDto)
         {
             var user = await userManager.FindByEmailAsync(loginRequestDto.Email);

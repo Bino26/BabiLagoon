@@ -21,7 +21,8 @@ namespace BabiLagoon.Application.Common.Mapping
             CreateMap<CreateAmenityDto, Amenity>().ReverseMap();
             CreateMap<UpdateAmenityDto, Amenity>().ReverseMap();
 
-            CreateMap<LoginRequestDto, UserDto>().ReverseMap();
+            //CreateMap<ApplicationUser, UserDto>().ReverseMap();
+            
         }
     }
 }

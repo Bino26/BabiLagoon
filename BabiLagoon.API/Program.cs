@@ -1,3 +1,4 @@
+using BabiLagoon.Application;
 using BabiLagoon.Application.Common.Interfaces;
 using BabiLagoon.Application.Common.Interfaces.Base;
 using BabiLagoon.Application.Common.Mapping;
@@ -26,6 +27,8 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("BabiLagoonString
 
 builder.Services.AddDbContext<ApplicationAuthDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("BabiLagoonAuthString")));
+
+builder.Services.AddApplication();
 
 
 builder.Services.AddScoped<IVillaRepository, VillaRepository>();
