@@ -4,6 +4,7 @@ using BabiLagoon.Application.Common.DTOs;
 using BabiLagoon.Application.Common.Interfaces;
 using BabiLagoon.Domain.Entities;
 using BabiLagoon.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,7 +24,7 @@ namespace BabiLagoon.API.Controllers
         }
         [HttpGet]
         [Route("AllAmenity")]
-        //[Authorize(Roles = "Writer,Reader")]
+        [Authorize(Roles = "Writer,Reader")]
         // GET: /api/villa?filterOn=Name&filterQuery=Track&isAscending=true
 
         public async Task<IActionResult> GetAllAmenity()
@@ -35,7 +36,7 @@ namespace BabiLagoon.API.Controllers
         }
         [HttpGet]
         [Route("{id}")]
-        //[Authorize(Roles = "Writer,Reader")]
+        [Authorize(Roles = "Writer,Reader")]
 
         public async Task<IActionResult> GetAmenityById([FromRoute] int id)
         {
@@ -49,7 +50,7 @@ namespace BabiLagoon.API.Controllers
         [HttpPost]
         [Route("createamenity")]
         [ValidateModel]
-        //[Authorize(Roles = "Writer")]
+        [Authorize(Roles = "Writer")]
 
         public async Task<IActionResult> CreateAmenity([FromBody]CreateAmenityDto createAmenityDto)
         {
@@ -60,7 +61,7 @@ namespace BabiLagoon.API.Controllers
         [HttpPut]
         [Route("{id}")]
         [ValidateModel]
-        //[Authorize(Roles = "Writer")]
+        [Authorize(Roles = "Writer")]
 
 
         public async Task<IActionResult> UpdateAmenity([FromRoute] int id, [FromBody] UpdateAmenityDto updateAmenityDto)
@@ -72,6 +73,7 @@ namespace BabiLagoon.API.Controllers
 
         [HttpDelete]
         [Route("{id}")]
+        [Authorize(Roles = "Writer,Reader")]
 
 
         public async Task<IActionResult> DeleteAmenity([FromRoute] int id)
@@ -81,7 +83,7 @@ namespace BabiLagoon.API.Controllers
         }
 
         [HttpDelete]
-        //[Authorize(Roles = "Writer")]
+        [Authorize(Roles = "Writer")]
 
         public async Task<IActionResult> DeleteAllAmenity()
         {

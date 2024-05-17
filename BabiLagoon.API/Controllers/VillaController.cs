@@ -24,7 +24,7 @@ namespace BabiLagoon.API.Controllers
 
         [HttpGet]
         [Route("AllVilla")]
-        //[Authorize(Roles = "Writer,Reader")]
+        [Authorize(Roles = "Writer,Reader")]
         // GET: /api/villa?filterOn=Name&filterQuery=Track&isAscending=true
 
         public async Task<IActionResult> GetAllVilla()
@@ -36,7 +36,7 @@ namespace BabiLagoon.API.Controllers
         }
         [HttpGet]
         [Route("{id}")]
-        //[Authorize(Roles = "Writer,Reader")]
+        [Authorize(Roles = "Writer,Reader")]
 
         public async Task<IActionResult> GetVillaById([FromRoute] int id)
         {
@@ -50,7 +50,7 @@ namespace BabiLagoon.API.Controllers
         [HttpPost]
         [Route("createvilla")]
         [ValidateModel]
-        //[Authorize(Roles = "Writer")]
+        [Authorize(Roles = "Writer")]
 
         public async Task<IActionResult> CreateVilla([FromBody] CreateVillaDto createVillaDto)
         {
@@ -61,7 +61,7 @@ namespace BabiLagoon.API.Controllers
         [HttpPut]
         [Route("{id}")]
         [ValidateModel]
-        //[Authorize(Roles = "Writer")]
+        [Authorize(Roles = "Writer")]
 
 
         public async Task<IActionResult> UpdateVilla([FromRoute] int id, [FromBody] UpdateVillaDto updateVillaDto)
@@ -82,7 +82,7 @@ namespace BabiLagoon.API.Controllers
         }
 
         [HttpDelete]
-        //[Authorize(Roles = "Writer")]
+        [Authorize(Roles = "Writer")]
 
         public async Task<IActionResult> DeleteAllVilla()
         {

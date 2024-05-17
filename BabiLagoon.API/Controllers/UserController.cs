@@ -1,4 +1,5 @@
 ﻿using Azure.Core.GeoJson;
+using BabiLagoon.API.Filters;
 using BabiLagoon.Application.Common.DTOs;
 using BabiLagoon.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -21,6 +22,7 @@ namespace BabiLagoon.API.Controllers
 
         [HttpPost]
         [Route("register")]
+        [ValidateModel]
 
         public async Task<IActionResult> Register([FromBody] CreateUserDto createUserDto)
         {
@@ -49,7 +51,7 @@ namespace BabiLagoon.API.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Writer,Reader")]
         [Route("user")]
 
         public async Task<IActionResult> GetUser()
@@ -59,7 +61,7 @@ namespace BabiLagoon.API.Controllers
         }
 
         //[HttpGet]
-        //[Authorize]
+        //[Authorize(Roles = "Writer")]
         //[Route("users")]
 
         //public async Task<IActionResult> GetUsers()
@@ -69,7 +71,7 @@ namespace BabiLagoon.API.Controllers
         //}
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Writer,Reader")]
         [Route("logout")]
 
         public async Task<IActionResult> LogOut()
@@ -78,7 +80,7 @@ namespace BabiLagoon.API.Controllers
             return Ok("User was logged out successfuly");
         }
         [HttpPut]
-        [Authorize]
+        [Authorize(Roles = "Writer,Reader")]
         [Route("updateuser")]
 
         public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDto updateUserDto)
@@ -88,7 +90,7 @@ namespace BabiLagoon.API.Controllers
         }
 
         [HttpDelete]
-        [Authorize]
+        [Authorize(Roles = "Writer,Reader")]
         [Route("deleteuser")]
 
         public async Task<IActionResult> DeleteUser()
