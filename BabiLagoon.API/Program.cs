@@ -13,73 +13,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("BabiLagoonString")));
-
-builder.Services.AddDbContext<ApplicationAuthDbContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("BabiLagoonAuthString")));
-
-builder.Services.AddApplication();
-
-
-builder.Services.AddScoped<IVillaRepository, VillaRepository>();
-builder.Services.AddScoped<IAmenityRepository, AmenityRepository>();
-builder.Services.AddScoped<ITokenService, TokenService>();
-builder.Services.AddScoped<IIdentityService, IdentityService>();
-
-builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
-
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationAuthDbContext>()
-    .AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>("BabiLagoon")
-    .AddDefaultTokenProviders();
-
-builder.Services.Configure<IdentityOptions>(options =>
-{
-    options.Password = new PasswordOptions
-    {
-        RequireDigit = false,
-        RequireLowercase = false,
-        RequireNonAlphanumeric = false,
-        RequireUppercase = false,
-        RequiredLength = 6,
-        RequiredUniqueChars = 1
-
-    };
-    options.SignIn = new SignInOptions
-    {
-        RequireConfirmedAccount = false,
-        RequireConfirmedEmail = false
-    };
-    options.User = new UserOptions
-    {
-        AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.@1234567890!#$%&'*+-/=?^_`{|}~",
-        RequireUniqueEmail = true
-    };
-});
-
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        ValidAudience = builder.Configuration["Jwt:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-
-    });
-
-
+builder.Services.AddSwaggerServices();
+builder.Services.AddDatabaseServices(builder.Configuration);
+builder.Services.AddIdentityServices(builder.Configuration);
+builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 
@@ -99,3 +42,91 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public static class DatabaseServiceExtensions
+{
+    public static IServiceCollection AddDatabaseServices(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer(configuration.GetConnectionString("BabiLagoonString")));
+
+        services.AddDbContext<ApplicationAuthDbContext>(options =>
+            options.UseSqlServer(configuration.GetConnectionString("BabiLagoonAuthString")));
+
+        return services;
+    }
+}
+
+public static class IdentityServiceExtensions
+{
+    public static IServiceCollection AddIdentityServices(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddIdentity<ApplicationUser, IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationAuthDbContext>()
+            .AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>("BabiLagoon")
+            .AddDefaultTokenProviders();
+
+        services.Configure<IdentityOptions>(options =>
+        {
+            options.Password = new PasswordOptions
+            {
+                RequireDigit = false,
+                RequireLowercase = false,
+                RequireNonAlphanumeric = false,
+                RequireUppercase = false,
+                RequiredLength = 6,
+                RequiredUniqueChars = 1
+            };
+            options.SignIn = new SignInOptions
+            {
+                RequireConfirmedAccount = false,
+                RequireConfirmedEmail = false
+            };
+            options.User = new UserOptions
+            {
+                AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.@1234567890!#$%&'*+-/=?^_`{|}~",
+                RequireUniqueEmail = true
+            };
+        });
+
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = configuration["Jwt:Issuer"],
+                ValidAudience = configuration["Jwt:Audience"],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]))
+            });
+
+        return services;
+    }
+}
+
+public static class ApplicationServiceExtensions
+{
+    public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+    {
+        services.AddScoped<IVillaRepository, VillaRepository>();
+        services.AddScoped<IAmenityRepository, AmenityRepository>();
+        services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IIdentityService, IdentityService>();
+
+        services.AddAutoMapper(typeof(AutoMapperProfile));
+
+        return services;
+    }
+}
+
+public static class SwaggerServiceExtensions
+{
+    public static IServiceCollection AddSwaggerServices(this IServiceCollection services)
+    {
+        services.AddEndpointsApiExplorer();
+        services.AddSwaggerGen();
+
+        return services;
+    }
+};
